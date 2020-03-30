@@ -1,0 +1,4 @@
+/venv
+/.idea
+/amazon_phone_dataset.csv
+/temp.py
