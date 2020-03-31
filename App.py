@@ -19,7 +19,11 @@ def addBrand(obj):
 
 def fillRandomReview(obj):
     if obj["rating"]=="":
-       obj["rating"] = str("{0:.1f}".format(random.uniform(1.0,5.0)))+ " out of 5 stars"
+       obj["rating"] = float("{0:.1f}".format(random.uniform(1.0,5.0)))
+    else:
+        rating=obj["rating"][0:3]    #sliced through starting three digits of the rating string
+        obj["rating"]= float(rating)
+
     #print(obj)
     return obj
 
@@ -32,7 +36,7 @@ def fillRandomPrice(obj):
     if price.find(',') != -1:
         price = price.replace(',', '')
         price = price.split(".", 1)[0]
-    obj["Product_price"] = price
+    obj["Product_price"] = int(price)
     return obj
 
 def addNewIdData(obj,id):
@@ -75,8 +79,10 @@ with open('amazon_phone_dataset.json', encoding="utf8") as infile:
         j+=1                      #total number of filtered records
         # updating price in required format and filling price for the documents with no price
         obj = fillRandomPrice(obj)
+        # change price data type string to int
         #filling random reviews for documents with no reviews
         obj = fillRandomReview(obj)
+
         #adding an id to the dataset
         obj = addNewIdData(obj,id)
         id+=1
@@ -87,6 +93,6 @@ with open('amazon_phone_dataset.json', encoding="utf8") as infile:
 #open file with write permission
 with open('dataset.json',  'w') as outfile:
     #write json data into dataset.json file(it creates new json file)
-    json.dump(data,outfile)
+    json.dump(data,outfile,indent=1)
 
 print(smartphoneBrand)
