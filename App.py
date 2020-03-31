@@ -36,7 +36,7 @@ def fillRandomPrice(obj):
     return obj
 
 def addNewIdData(obj,id):
-    obj['Product_id'] = id
+    obj['_id'] = id
     return obj
 
 #opening json dataset
